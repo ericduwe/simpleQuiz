@@ -1,7 +1,8 @@
+let quizEl = document.getElementById("quiz");
+let stateEl = document.querySelector("#state-name");
 
 
-
-let question = [
+let questions = [
     {
     state: "Texas",
     answers: ["Houston", "Dallas", "San Antonio", "Austin"],
@@ -19,16 +20,17 @@ let question = [
     }
 
 ]
-function askQuestion (challenge) {
-    let stateEl = document.querySelector("#state-name");
-    stateEl.textContent = challenge.state;
+function askQuestion (q) {
+    
+    chosenQuestion = questions[Math.floor(Math.random() * questions.length)];
+    stateEl.textContent = chosenQuestion.state;
 
     let choices = document.querySelectorAll(".answer");
     console.log(choices);
     choices.forEach(function(element, index) {
-        element.textContent = challenge.answers[index];
+        element.textContent = chosenQuestion.answers[index];
         element.addEventListener("click", function () {
-            if (challenge.correctAnswer === index) {
+            if (chosenQuestion.correctAnswer === index) {
                 console.log("Correct!");
             } else {
                 console.log("Wrong!");
@@ -37,4 +39,4 @@ function askQuestion (challenge) {
     });
 };
 
-askQuestion(question);
+askQuestion(questions);
