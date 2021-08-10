@@ -1,5 +1,30 @@
 let quizEl = document.getElementById("quiz");
 let stateEl = document.querySelector("#state-name");
+let timerEl = document.querySelector(".card-text");
+let startButton = document.querySelector(".btn btn-primary");
+let choices = document.querySelectorAll(".answer");
+
+var timer;
+var timerCount;
+
+// //Timer
+// function startTimer() {
+//     // Sets timer
+//     timerCount = 60
+//     timer = setInterval(function() {
+//       timerCount--;
+//       timerEl.textContent = timerCount
+//       if (timerCount <= 0) {
+//           clearInterval(timer);
+//           alert("Time Expired!")
+
+//       }
+//     }, 1000);
+// }  
+
+
+//Start button
+//startButton.addEventListener("click", startTimer)
 
 
 let questions = [
@@ -20,23 +45,59 @@ let questions = [
     }
 
 ]
+
+
 function askQuestion (q) {
     
-    chosenQuestion = questions[Math.floor(Math.random() * questions.length)];
+    
+    chosenQuestion = questions[0];
     stateEl.textContent = chosenQuestion.state;
+    
+        
 
-    let choices = document.querySelectorAll(".answer");
-    console.log(choices);
-    choices.forEach(function(element, index) {
-        element.textContent = chosenQuestion.answers[index];
-        element.addEventListener("click", function () {
-            if (chosenQuestion.correctAnswer === index) {
-                console.log("Correct!");
-            } else {
-                console.log("Wrong!");
-            };
+        console.log(choices);
+        choices.forEach(function(element, index) {
+            element.textContent = chosenQuestion.answers[index];
+            element.addEventListener("click", function () {
+                event.preventDefault()
+                if (chosenQuestion.correctAnswer === index) {
+                    console.log("Correct!");
+
+                    chosenQuestion = questions[1];
+                    stateEl.textContent = chosenQuestion.state;
+                    console.log(choices);
+                    choices.forEach(function(element, index) {
+                        element.textContent = chosenQuestion.answers[index];
+                        element.addEventListener("click", function () {
+                            if (chosenQuestion.correctAnswer === index) {
+                                console.log("Correct!");
+                                
+                                chosenQuestion = questions[2];
+                                stateEl.textContent = chosenQuestion.state;
+                                console.log(choices);
+                                choices.forEach(function(element, index) {
+                                    element.textContent = chosenQuestion.answers[index];
+                                    element.addEventListener("click", function () {
+                                        if (chosenQuestion.correctAnswer === index) {
+                                            console.log("Correct!");
+                                        } else {
+                                            console.log("Wrong!")
+                                        }
+                                    })
+                                })
+
+                            } else {
+                                console.log("Wrong!");
+                            }
+                        })
+                    })
+                } else {
+                    console.log("Wrong!");
+                }
+                
+                ;
+            });
         });
-    });
 };
 
 askQuestion(questions);
