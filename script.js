@@ -15,6 +15,10 @@ let scoreCounter = document.querySelector("#points")
 const timer = document.querySelector("#timer")
 const timeContainer = document.querySelector(".time-container")
 const highScoreForm = document.querySelector(".submit-score")
+const initialsInput = document.querySelector("#initials")
+const submitButton = document.querySelector("#submit-button")
+const scoresList = document.querySeelctor("#score-list")
+const scoresContainer = document.querySelector("#high-scores")
 var secondsLeft = 100;
 
 function setTime() {
@@ -150,6 +154,32 @@ function selectAnswer (event) {
     }
 }
 
+submitButton.addEventListener("click", function(event) {
+    event.preventDefault();
+
+    var intials = document.querySelector("#initials").value();
+    if (initials === "") {
+        alert("Error: initials cannot be blank");
+    } else {
+        alert("Submitted successfully!")
+    }
+
+    localStorage.setItem("initials", initials);
+    renderHighScores()
+    scoresContainer.classList.remove("hide");
+})
+
+function renderHighScores() {
+    var initials = localStorage.getItem("initials");
+
+    if (!initials) {
+        return;
+    }
+
+    scoresList.createElement("<li>")
+    
+
+}
 
       
         
