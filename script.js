@@ -11,9 +11,9 @@ const quizEl = document.querySelector("#quiz");
 const questionEl = document.querySelector("#question")
 const startButton = document.querySelector("#start-btn")
 const answerBtnEl = document.querySelector("#answer-btns")
-let score = 0;
-let timer;
-let timerCount;
+let scoreCounter = document.querySelector("#points")
+
+
 
 
 
@@ -85,6 +85,7 @@ function selectAnswer (event) {
     if (choice.textContent === correctAnswer) {
         console.log("Correct")
         alert("Correct!");
+        scoreCounter.textContent++;
     } else {
         console.log("Wrong")
         alert("Wrong!");
