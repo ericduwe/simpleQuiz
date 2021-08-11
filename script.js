@@ -12,10 +12,24 @@ const questionEl = document.querySelector("#question")
 const startButton = document.querySelector("#start-btn")
 const answerBtnEl = document.querySelector("#answer-btns")
 let scoreCounter = document.querySelector("#points")
+const timer = document.querySelector("#timer")
+var secondsLeft = 100;
 
+function setTime() {
+    var timerInterval = setInterval(function() {
+        secondsLeft--;
+        timer.innerHTML = secondsLeft
+        if (secondsLeft <= 0) {
+            clearInterval(timerInterval);
+            gameOver()
+        }
+    }, 1000)
+}
 
-
-
+function gameOver() {
+    quizEl.classList.add("hide")
+    alert("Game Over! See High Scores.")
+}
 
 
 let questions = [
@@ -33,7 +47,37 @@ let questions = [
          question: "What is the capital of California?",
          answers: ["San Jose", "San Francisco", "Fresno", "Sacramento"],
          correctAnswer: "Sacramento"
-         }
+        },
+        {
+         question: "What is the capital of Ohio?",
+         answers: ["Columbus", "Cincinnati", "Dayton", "Cleveland"],
+         correctAnswer: "Columbus"
+        },
+        {    
+         question: "What is the capital of Georgia?",
+         answers: ["Macon", "Augusta", "Atlanta", "Savannah"],
+         correctAnswer: "Atlanta"
+        },
+        {    
+         question: "What is the capital of Wisconsin?",
+         answers: ["Milwaukee", "Oshkosh", "Green Bay", "Madison"],
+         correctAnswer: "Madison"
+        },
+        {    
+         question: "What is the capital of Iowa?",
+         answers: ["Dubuque", "Des Moines", "Iowa City", "Waterloo"],
+         correctAnswer: "Des Moines"
+        },
+        {    
+         question: "What is the capital of Colorado?",
+         answers: ["Denver", "Colorado Springs", "Boulder", "Pueblo"],
+         correctAnswer: "Denver"
+        },
+        {    
+         question: "What is the capital of Michigan?",
+         answers: ["Detroit", "Grand Rapids", "Lansing", "Flint"],
+         correctAnswer: "Lansing"
+        }
 
 ]
 
@@ -50,6 +94,7 @@ function randomize(array) {
 startButton.addEventListener("click", startQuiz)
 
 function startQuiz() {
+    setTime();
     startButton.classList.add("hide");
     randomize(questions);
     currentIndex = 0;
@@ -89,6 +134,7 @@ function selectAnswer (event) {
     } else {
         console.log("Wrong")
         alert("Wrong!");
+        secondsLeft-=10
     }
     
     
@@ -96,7 +142,7 @@ function selectAnswer (event) {
         currentIndex++;
         getNewQuestion();
     } else {
-        alert("Quiz Complete!")
+        gameOver();
     }
 }
                 
