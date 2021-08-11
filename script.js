@@ -17,7 +17,7 @@ const timeContainer = document.querySelector(".time-container")
 const highScoreForm = document.querySelector(".submit-score")
 const initialsInput = document.querySelector("#initials")
 const submitButton = document.querySelector("#submit-button")
-const scoresList = document.querySeelctor("#score-list")
+const scoresList = document.querySelector("#score-list")
 const scoresContainer = document.querySelector("#high-scores")
 var secondsLeft = 100;
 
