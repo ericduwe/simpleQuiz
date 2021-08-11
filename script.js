@@ -1,103 +1,67 @@
-let quizEl = document.getElementById("quiz");
-let stateEl = document.querySelector("#state-name");
-let timerEl = document.querySelector(".card-text");
-let startButton = document.querySelector(".btn btn-primary");
-let choices = document.querySelectorAll(".answer");
+//Review:
+//For loop activities
+//Array activities
+//timer countdown activity
+//button activities
 
+
+
+
+let quizEl = document.getElementById("quiz");
+let questionEl = document.getElementById("question");
+let timerEl = document.querySelector(".card-text");
+const startButton = document.getElementById("start-btn");
+let choices = document.querySelectorAll(".answer");
+let score = 0;
 var timer;
 var timerCount;
 
-// //Timer
-// function startTimer() {
-//     // Sets timer
-//     timerCount = 60
-//     timer = setInterval(function() {
-//       timerCount--;
-//       timerEl.textContent = timerCount
-//       if (timerCount <= 0) {
-//           clearInterval(timer);
-//           alert("Time Expired!")
 
-//       }
-//     }, 1000);
-// }  
-
-
-//Start button
-//startButton.addEventListener("click", startTimer)
 
 
 let questions = [
-    {
-    state: "Texas",
-    answers: ["Houston", "Dallas", "San Antonio", "Austin"],
-    correctAnswer: 3
-    },
-    {
-    state: "New York",
-    answers: ["Syracuse", "Albany", "New York City", "Niagara Falls"],
-    correctAnswer: 1
-    },
-    {
-    state: "California",
-    answers: ["Oakland", "Sacramento", "Los Angeles", "San Jose"],
-    correctAnswer: 1
-    }
+        {
+        question: "What is the capital of Texas",
+        answers: [{text: "Houston", correct: false}, {text: "Dallas", correct:false}, {text: "San Antonio", correct: false}, {text: "Austin", correct: true}],
+        
+        },
+        {
+        question: "What is the capital of New York",
+        answers: [{text: "Syracuse", correct: false}, {text: "Albany", correct: true}, {text: "New York City", correct: false}, {text: "Niagara Falls", correct: false}],
+        },
+        {
+         question: "What is the capital of California",
+         answers: [{text: "Oakland", correct: false}, {text: "Sacramento", correct: true}, {text: "Los Angeles", correct: false}, {text: "San Jose", correct: false}],
+         }
 
 ]
 
 
-function askQuestion (q) {
-    
-    
-    chosenQuestion = questions[0];
-    stateEl.textContent = chosenQuestion.state;
-    
-        
+function showQuestion () {
+    currentIndex = 0;
+    chosenQuestion = questions[currentIndex];
+    questionEl.textContent = chosenQuestion.question;   
 
-        console.log(choices);
-        choices.forEach(function(element, index) {
+            choices.forEach(function(element, index) {
             element.textContent = chosenQuestion.answers[index];
             element.addEventListener("click", function () {
-                event.preventDefault()
+                
                 if (chosenQuestion.correctAnswer === index) {
                     console.log("Correct!");
-
-                    chosenQuestion = questions[1];
-                    stateEl.textContent = chosenQuestion.state;
-                    console.log(choices);
-                    choices.forEach(function(element, index) {
-                        element.textContent = chosenQuestion.answers[index];
-                        element.addEventListener("click", function () {
-                            if (chosenQuestion.correctAnswer === index) {
-                                console.log("Correct!");
-                                
-                                chosenQuestion = questions[2];
-                                stateEl.textContent = chosenQuestion.state;
-                                console.log(choices);
-                                choices.forEach(function(element, index) {
-                                    element.textContent = chosenQuestion.answers[index];
-                                    element.addEventListener("click", function () {
-                                        if (chosenQuestion.correctAnswer === index) {
-                                            console.log("Correct!");
-                                        } else {
-                                            console.log("Wrong!")
-                                        }
-                                    })
-                                })
-
-                            } else {
-                                console.log("Wrong!");
-                            }
-                        })
-                    })
-                } else {
+                   
+                    } else {
                     console.log("Wrong!");
-                }
+                    }
+                    })
+                } 
                 
-                ;
-            });
-        });
-};
+                
+        
+             );
+         };
 
-askQuestion(questions);
+
+showQuestion(question);
+
+
+//
