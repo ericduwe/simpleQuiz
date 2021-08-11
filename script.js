@@ -13,6 +13,8 @@ const startButton = document.querySelector("#start-btn")
 const answerBtnEl = document.querySelector("#answer-btns")
 let scoreCounter = document.querySelector("#points")
 const timer = document.querySelector("#timer")
+const timeContainer = document.querySelector(".time-container")
+const highScoreForm = document.querySelector(".submit-score")
 var secondsLeft = 100;
 
 function setTime() {
@@ -28,6 +30,8 @@ function setTime() {
 
 function gameOver() {
     quizEl.classList.add("hide")
+    timeContainer.classList.add("hide")
+    highScoreForm.classList.remove("hide")
     alert("Game Over! See High Scores.")
 }
 
@@ -133,7 +137,7 @@ function selectAnswer (event) {
         scoreCounter.textContent++;
     } else {
         console.log("Wrong")
-        alert("Wrong!");
+        alert("Wrong Answer! Warning: 10 seconds deducted from clock!");
         secondsLeft-=10
     }
     
@@ -145,6 +149,7 @@ function selectAnswer (event) {
         gameOver();
     }
 }
-                
+
+
       
         
