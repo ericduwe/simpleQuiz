@@ -7,61 +7,102 @@
 
 
 
-let quizEl = document.getElementById("quiz");
-let questionEl = document.getElementById("question");
-let timerEl = document.querySelector(".card-text");
-const startButton = document.getElementById("start-btn");
-let choices = document.querySelectorAll(".answer");
+const quizEl = document.querySelector("#quiz");
+const questionEl = document.querySelector("#question")
+const startButton = document.querySelector("#start-btn")
+const answerBtnEl = document.querySelector("#answer-btns")
 let score = 0;
-var timer;
-var timerCount;
+let timer;
+let timerCount;
 
 
 
 
 let questions = [
         {
-        question: "What is the capital of Texas",
-        answers: [{text: "Houston", correct: false}, {text: "Dallas", correct:false}, {text: "San Antonio", correct: false}, {text: "Austin", correct: true}],
-        
+        question: "What is the capital of Texas?",
+        answers: ["Houston", "Dallas", "Austin", "San Antonio"],
+        correctAnswer: 2
         },
         {
-        question: "What is the capital of New York",
-        answers: [{text: "Syracuse", correct: false}, {text: "Albany", correct: true}, {text: "New York City", correct: false}, {text: "Niagara Falls", correct: false}],
+        question: "What is the capital of New York?",
+        answers: ["New York City", "Albany", "Syracuse", "Niagara Falls"],
+        correctAnswer: 1
         },
         {
-         question: "What is the capital of California",
-         answers: [{text: "Oakland", correct: false}, {text: "Sacramento", correct: true}, {text: "Los Angeles", correct: false}, {text: "San Jose", correct: false}],
+         question: "What is the capital of California?",
+         answers: ["San Jose", "San Francisco", "Fresno", "Sacramento"],
+         correctAnswer: 3
          }
 
 ]
 
+function randomize(array) {
+    let currentIndex = array.length, randomIndex;
+    while (0 !== currentIndex) {
+        randomIndex = Math.floor(Math.random() * currentIndex)
+        currentIndex--;
+        [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+    }
+    return array;
+}
 
-function showQuestion () {
+startButton.addEventListener("click", startQuiz)
+
+function startQuiz() {
+    startButton.classList.add("hide");
+    randomize(questions);
     currentIndex = 0;
-    chosenQuestion = questions[currentIndex];
-    questionEl.textContent = chosenQuestion.question;   
+    quizEl.classList.remove("hide");
+    getNewQuestion();
+    
+}
 
-            choices.forEach(function(element, index) {
-            element.textContent = chosenQuestion.answers[index];
-            element.addEventListener("click", function () {
+function getNewQuestion() {
+    clearQuestion();
+    showQuestion(questions[currentIndex])
+}
+
+function clearQuestion () {
+    while (answerBtnEl.firstChild) {
+        answerBtnEl.removeChild(answerBtnEl.firstChild)
+    }
+}
+function showQuestion (question) {
+    
+    questionEl.textContent = question.question;   
+    question.answers.forEach(answer => {
+        let button = document.createElement("button");
+        button.innerHTML = answer;
+        if (answer.correct) {
+            button.dataset.correct = answer.correct;
+        }
+        button.addEventListener("click", selectAnswer);
+        answerBtnEl.appendChild(button);
+    })
+};
+
+function selectAnswer (event) {
+    var choice = event.target;
+    var isCorrect = choice.dataset.correct;
+    checkAnswer(document.body, isCorrect)
+    Array.from(answerBtnEl.children).forEach(button => {
+        checkAnswer(button, button.dataset.correct)
+    })
+    if (questions.length > currentIndex + 1) {
+        currentIndex++;
+        getNewQuestion();
+    } else {
+        alert("Quiz Complete!")
+    }
+}
                 
-                if (chosenQuestion.correctAnswer === index) {
-                    console.log("Correct!");
-                   
-                    } else {
-                    console.log("Wrong!");
-                    }
-                    })
-                } 
-                
-                
+function checkAnswer(element, correct) {
+    if (correct) {
+        console.log("correct!")
+    } else {
+        console.log("wrong!")
         
-             );
-         };
-
-
-showQuestion(question);
-
-
-//
+    }
+}                
+        
